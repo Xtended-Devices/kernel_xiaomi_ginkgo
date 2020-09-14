@@ -4,7 +4,7 @@ ZIPNAME="QuicksilveR-ginkgo-$(date '+%Y%m%d-%H%M').zip"
 
 if ! [ -d "$HOME/proton" ]; then
 echo "Proton clang not found! Cloning..."
-if ! git clone -q https://github.com/kdrag0n/proton-clang ~/proton; then
+if ! git clone -q https://github.com/kdrag0n/proton-clang --depth=1 --single-branch ~/proton; then
 echo "Cloning failed! Aborting..."
 exit 1
 fi
@@ -25,7 +25,7 @@ fi
 if [ -f "out/arch/arm64/boot/Image.gz-dtb" ]; then
 git clone -q https://github.com/ghostrider-reborn/AnyKernel3
 cp out/arch/arm64/boot/Image.gz-dtb AnyKernel3
-rm -f *zip
+rm -f out/arch/arm64/boot
 cd AnyKernel3
 zip -r9 "../$ZIPNAME" * -x '*.git*' README.md *placeholder
 cd ..
